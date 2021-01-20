@@ -25,7 +25,7 @@
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -165,6 +165,13 @@ class finddata:
         foldername = QFileDialog.getExistingDirectory(self.dlg, "Select folder ","",)
         self.dlg.edtFolder.setText(foldername)
 
+    def search_spatial_data(self):
+        root_folder = self.dlg.edtFolder.displayText()
+        if root_folder == '':
+            QMessageBox.information(None, "Warning!", "No root folder selected. Please select a folder.")
+            return
+        else:
+            QMessageBox.information(None, "Warning!", root_folder)
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
@@ -199,9 +206,10 @@ class finddata:
             self.dlg = finddataDialog()
 
         self.dlg.edtFolder.clear()
-        # Connect select button to select_output_file method
-        self.dlg.btnSelectFolder.pressed.connect(self.select_root_folder)
 
+        # signals
+        self.dlg.btnSelectFolder.pressed.connect(self.select_root_folder)
+        self.dlg.btnApply.pressed.connect(self.search_spatial_data)
 
         # show the dialog
         self.dlg.show()
