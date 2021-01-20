@@ -19,9 +19,13 @@
  *                                                                         *
  ***************************************************************************/
 """
+
+# compile resources
+# pyrcc5 -o resources.py resources.qrc
+
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction
+from qgis.PyQt.QtWidgets import QAction, QFileDialog
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -60,6 +64,8 @@ class finddata:
         # Declare instance attributes
         self.actions = []
         self.menu = self.tr(u'&finddata')
+        self.toolbar = self.iface.addToolBar(u'finddata')
+        self.toolbar.setObjectName(u'finddata')
 
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
@@ -155,6 +161,11 @@ class finddata:
 
         return action
 
+    def select_root_folder(self):
+        foldername = QFileDialog.getExistingDirectory(self.dlg, "Select folder ","",)
+        self.dlg.edtFolder.setText(foldername)
+
+
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
@@ -186,6 +197,11 @@ class finddata:
         if self.first_start == True:
             self.first_start = False
             self.dlg = finddataDialog()
+
+        self.dlg.edtFolder.clear()
+        # Connect select button to select_output_file method
+        self.dlg.btnSelectFolder.pressed.connect(self.select_root_folder)
+
 
         # show the dialog
         self.dlg.show()
