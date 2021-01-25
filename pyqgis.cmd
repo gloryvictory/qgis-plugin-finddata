@@ -12,6 +12,7 @@ path %PATH%;%OSGEO4W_ROOT%\apps\Qt5\bin\
 path %PATH%;%OSGEO4W_ROOT%\apps\Python37\Scripts\
 path %PATH%;%OSGEO4W_ROOT%\apps\qgis-dev\python\qgis\PyQt\
 path %PATH%;c:\python38\lib\site-packages
+path %PATH%;C:\Apps\Git\bin\
 
 set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis
 
@@ -33,6 +34,8 @@ set PYTHONPATH=%OSGEO4W_ROOT%\apps\Python37\lib\site-packages;%PYTHONPATH%
 
 set QT_QPA_PLATFORM_PLUGIN_PATH=%OSGEO4W_ROOT%\apps\Qt5\plugins\platforms
 set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis
+
+CD C:\Glory\Projects\Python\gloryvictory\qgis-plugin-finddata\
 
 cmd.exe
 
