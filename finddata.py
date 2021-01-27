@@ -71,6 +71,8 @@ class finddata:
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
 
+        self.search_folder = ""
+
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
@@ -163,7 +165,13 @@ class finddata:
 
     def select_root_folder(self):
         foldername = QFileDialog.getExistingDirectory(self.dlg, "Select folder ","",)
-        self.dlg.edtFolder.setText(foldername)
+        #print("select_root_folder(self)")
+        if os.path.exists(foldername):
+            self.dlg.edtFolder.setText(foldername)
+            self.search_folder = foldername
+            search_vector_data(self.search_folder)
+
+
 
     def search_spatial_data(self):
         root_folder = self.dlg.edtFolder.displayText()
@@ -172,6 +180,10 @@ class finddata:
             return
         else:
             QMessageBox.information(None, "Warning!", root_folder)
+
+def search_vector_data(search_folder=""):
+    pass
+
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
@@ -219,4 +231,5 @@ class finddata:
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
+
             pass
