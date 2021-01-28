@@ -33,6 +33,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 class finddataDialog(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
+
         super(finddataDialog, self).__init__(parent)
         # Set up the user interface from Designer through FORM_CLASS.
         # After self.setupUi() you can access any designer object by doing

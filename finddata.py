@@ -25,7 +25,7 @@
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox, QListView
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -70,6 +70,7 @@ class finddata:
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
+
 
         self.search_folder = ""
 
@@ -163,13 +164,29 @@ class finddata:
 
         return action
 
+    def search_vector_data(self):
+        search_folder = self.search_folder
+        QMessageBox.information(None, "31231321132113211332113322113322113322113212!", search_folder)
+        #self.listView.addItem(search_folder)
+
+        self.dlg.tabWidget.tab3.listWidget.addItem("123")
+        self.dlg.tabWidget.tab1Log.lvLog.addItem("123")
+        self.dlg.tabWidget.tab1Log.lvLog.addItem(search_folder)
+
+
+        pass
+
+
+
+
     def select_root_folder(self):
         foldername = QFileDialog.getExistingDirectory(self.dlg, "Select folder ","",)
         #print("select_root_folder(self)")
         if os.path.exists(foldername):
             self.dlg.edtFolder.setText(foldername)
             self.search_folder = foldername
-            search_vector_data(self.search_folder)
+            self.search_vector_data()
+
 
 
 
@@ -181,8 +198,6 @@ class finddata:
         else:
             QMessageBox.information(None, "Warning!", root_folder)
 
-def search_vector_data(search_folder=""):
-    pass
 
 
     def initGui(self):
@@ -218,6 +233,7 @@ def search_vector_data(search_folder=""):
             self.dlg = finddataDialog()
 
         self.dlg.edtFolder.clear()
+        #self.dlg
 
         # signals
         self.dlg.btnSelectFolder.pressed.connect(self.select_root_folder)
