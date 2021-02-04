@@ -22,6 +22,7 @@
 
 # compile resources
 # pyrcc5 -o resources.py resources.qrc
+# pyuic5 -o mainwindow_ui.py mainwindow.ui
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
