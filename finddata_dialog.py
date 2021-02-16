@@ -22,15 +22,20 @@
 
 import os
 
-from qgis.PyQt import uic
+#from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
+#from finddata_dialog_base import Ui_finddataDialogBase
+#import finddata_dialog_base
+from .finddata_dialog_base import Ui_finddataDialogBase
+
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
-FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'finddata_dialog_base.ui'))
+# FORM_CLASS, _ = uic.loadUiType(os.path.join(
+#     os.path.dirname(__file__), 'finddata_dialog_base.ui'))
 
 
-class finddataDialog(QtWidgets.QDialog, FORM_CLASS):
+#class finddataDialog(QtWidgets.QDialog, FORM_CLASS):
+class finddataDialog(QtWidgets.QDialog, Ui_finddataDialogBase):
     def __init__(self, parent=None):
         """Constructor."""
 

@@ -4,7 +4,7 @@
 
 [general]
 name=finddata
-qgisMinimumVersion=3.0
+qgisMinimumVersion=3.4
 description=find any spatial data
 version=0.1
 author=Viacheslav Zamaraev

@@ -22,7 +22,7 @@
 
 # compile resources
 # pyrcc5 -o resources.py resources.qrc
-# pyuic5 -o mainwindow_ui.py mainwindow.ui
+# pyuic5 -o finddata_dialog_base.py finddata_dialog_base.ui
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
@@ -167,12 +167,13 @@ class finddata:
 
     def search_vector_data(self):
         search_folder = self.search_folder
-        QMessageBox.information(None, "31231321132113211332113322113322113322113212!", search_folder)
-        #self.listView.addItem(search_folder)
 
-        self.dlg.tabWidget.tab3.listWidget.addItem("123")
-        self.dlg.tabWidget.tab1Log.lvLog.addItem("123")
-        self.dlg.tabWidget.tab1Log.lvLog.addItem(search_folder)
+        #self.listView.addItem(search_folder)
+        self.dlg.lvLog.addItem("123")
+        self.dlg.lvLog.addItem("123")
+        self.dlg.lvLog.addItem(search_folder)
+        self.dlg.lvTest.addItem("123")
+        QMessageBox.information(None, "Info!", search_folder)
 
 
         pass
