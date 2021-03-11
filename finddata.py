@@ -20,13 +20,16 @@
  ***************************************************************************/
 """
 
-# compile resources
+# compile resources and deploy
 # pyrcc5 -o resources.py resources.qrc
 # pyuic5 -o finddata_dialog_base.py finddata_dialog_base.ui
+# pb_tool deploy -y
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox, QListView
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox   #, QListView
+from PyQt5 import QtWidgets # QtCore, QtGui,
+
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -74,6 +77,8 @@ class finddata:
 
 
         self.search_folder = ""
+
+
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -172,7 +177,22 @@ class finddata:
         self.dlg.lvLog.addItem("123")
         self.dlg.lvLog.addItem("123")
         self.dlg.lvLog.addItem(search_folder)
-        self.dlg.lvTest.addItem("123")
+        self.dlg.lvLog.addItem("123")
+
+        numRows = self.dlg.tableWidget.rowCount()
+        self.dlg.tableWidget.show()
+
+        # Create a empty row at bottom of table
+        numRows = self.dlg.tableWidget.rowCount()
+        self.dlg.tableWidget.insertRow(numRows)
+
+
+
+        # Add text to the row
+        self.dlg.tableWidget.setItem(numRows, 0, QtWidgets.QTableWidgetItem(str(numRows)))
+        self.dlg.tableWidget.setItem(numRows, 1, QtWidgets.QTableWidgetItem("2222"))
+        self.dlg.tableWidget.setItem(numRows, 2, QtWidgets.QTableWidgetItem("333"))
+
         QMessageBox.information(None, "Info!", search_folder)
 
 
@@ -233,6 +253,15 @@ class finddata:
         if self.first_start == True:
             self.first_start = False
             self.dlg = finddataDialog()
+
+
+        self.dlg.tableWidget.setHorizontalHeaderItem(0, QtWidgets.QTableWidgetItem("filename"))
+        self.dlg.tableWidget.setHorizontalHeaderItem(1, QtWidgets.QTableWidgetItem("ext"))
+        self.dlg.tableWidget.setHorizontalHeaderItem(2, QtWidgets.QTableWidgetItem("size"))
+        self.dlg.tableWidget.setHorizontalHeaderItem(3, QtWidgets.QTableWidgetItem("sizeh"))
+        self.dlg.tableWidget.setHorizontalHeaderItem(4, QtWidgets.QTableWidgetItem("cdata"))
+
+
 
         self.dlg.edtFolder.clear()
         #self.dlg
