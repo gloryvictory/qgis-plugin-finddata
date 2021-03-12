@@ -27,10 +27,10 @@
    <locale language="English" country="UnitedStates"/>
   </property>
   <property name="sizeGripEnabled">
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <property name="modal">
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="1" column="0" colspan="2">
@@ -42,9 +42,9 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="tab1Log">
+     <widget class="QWidget" name="tabLog">
       <attribute name="title">
        <string>Log</string>
       </attribute>
@@ -61,9 +61,9 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="tabVector">
       <attribute name="title">
-       <string>Stats</string>
+       <string extracomment="Show Vector spatial data ">Vector</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
@@ -78,8 +78,13 @@
           <number>0</number>
          </property>
          <property name="columnCount">
-          <number>5</number>
+          <number>10</number>
          </property>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
          <column/>
          <column/>
          <column/>
@@ -89,9 +94,9 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab3">
+     <widget class="QWidget" name="tabStat">
       <attribute name="title">
-       <string>Page</string>
+       <string extracomment="Show Statistics">Statistics</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5"/>
      </widget>

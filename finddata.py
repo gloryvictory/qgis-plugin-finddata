@@ -75,10 +75,7 @@ class finddata:
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
 
-
         self.search_folder = ""
-
-
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -94,7 +91,6 @@ class finddata:
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('finddata', message)
-
 
     def add_action(
         self,
@@ -170,14 +166,13 @@ class finddata:
 
         return action
 
+
     def search_vector_data(self):
         search_folder = self.search_folder
 
-        #self.listView.addItem(search_folder)
-        self.dlg.lvLog.addItem("123")
-        self.dlg.lvLog.addItem("123")
+
         self.dlg.lvLog.addItem(search_folder)
-        self.dlg.lvLog.addItem("123")
+        self.dlg.lvLog.addItem("Starting at: ")
 
         numRows = self.dlg.tableWidget.rowCount()
         self.dlg.tableWidget.show()
@@ -190,7 +185,7 @@ class finddata:
 
         # Add text to the row
         self.dlg.tableWidget.setItem(numRows, 0, QtWidgets.QTableWidgetItem(str(numRows)))
-        self.dlg.tableWidget.setItem(numRows, 1, QtWidgets.QTableWidgetItem("2222"))
+        self.dlg.tableWidget.setItem(numRows, 1, QtWidgets.QTableWidgetItem("Привет"))
         self.dlg.tableWidget.setItem(numRows, 2, QtWidgets.QTableWidgetItem("333"))
 
         QMessageBox.information(None, "Info!", search_folder)
@@ -254,13 +249,17 @@ class finddata:
             self.first_start = False
             self.dlg = finddataDialog()
 
-
+        # self.dlg.tableWidget.columnCount()
+        # Set column headers
         self.dlg.tableWidget.setHorizontalHeaderItem(0, QtWidgets.QTableWidgetItem("filename"))
         self.dlg.tableWidget.setHorizontalHeaderItem(1, QtWidgets.QTableWidgetItem("ext"))
         self.dlg.tableWidget.setHorizontalHeaderItem(2, QtWidgets.QTableWidgetItem("size"))
-        self.dlg.tableWidget.setHorizontalHeaderItem(3, QtWidgets.QTableWidgetItem("sizeh"))
+        self.dlg.tableWidget.setHorizontalHeaderItem(3, QtWidgets.QTableWidgetItem("hsize"))
         self.dlg.tableWidget.setHorizontalHeaderItem(4, QtWidgets.QTableWidgetItem("cdata"))
-
+        self.dlg.tableWidget.setHorizontalHeaderItem(5, QtWidgets.QTableWidgetItem("mdata"))
+        self.dlg.tableWidget.setHorizontalHeaderItem(6, QtWidgets.QTableWidgetItem("ladata"))
+        self.dlg.tableWidget.setHorizontalHeaderItem(7, QtWidgets.QTableWidgetItem("fpath"))
+        self.dlg.tableWidget.setHorizontalHeaderItem(8, QtWidgets.QTableWidgetItem("npath"))
 
 
         self.dlg.edtFolder.clear()
