@@ -77,6 +77,11 @@ class finddata:
 
         self.search_folder = ""
 
+        self.file_log = ""              #Log file
+        self.file_csv = ""              # output csv file
+
+
+
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
@@ -168,19 +173,22 @@ class finddata:
 
 
     def search_vector_data(self):
+        data_vector = ['shp', 'mif', 'mid']
+
         search_folder = self.search_folder
 
-
-        self.dlg.lvLog.addItem(search_folder)
+        # add to log
         self.dlg.lvLog.addItem("Starting at: ")
+        self.dlg.lvLog.addItem(search_folder)
+
+
 
         numRows = self.dlg.tableWidget.rowCount()
-        self.dlg.tableWidget.show()
-
         # Create a empty row at bottom of table
         numRows = self.dlg.tableWidget.rowCount()
         self.dlg.tableWidget.insertRow(numRows)
 
+        self.dlg.tableWidget.show()
 
 
         # Add text to the row
@@ -188,13 +196,41 @@ class finddata:
         self.dlg.tableWidget.setItem(numRows, 1, QtWidgets.QTableWidgetItem("Привет"))
         self.dlg.tableWidget.setItem(numRows, 2, QtWidgets.QTableWidgetItem("333"))
 
-        QMessageBox.information(None, "Info!", search_folder)
+        try:
+            for root, subdirs, files in os.walk(search_folder):
+                for file in os.listdir(root):
+                    file_path = str(os.path.join(root, file))
+                    # .lower() - под линуксом есть разница!!!
+                    # ext = '.'.join(file.split('.')[1:]).lower()
+                    file_name = file.lower()
+                    file_ext = self.get_extension(file_name)
+                    # 'shx','shp'
 
 
+                    if os.path.isfile(file_path) :  # and file_name.startswith('info.doc')      #ext == "csv":
+                        self.dlg.lvLog.addItem(file_path)
+
+                        #listdir.append(file_path)
+        except Exception as e:
+            ss = "Exception occurred search_vector_data" + str(e)
+            print(ss)
+            self.dlg.lvLog.addItem(ss)
+
+        QMessageBox.information(None, "Info!", "Done!")
         pass
 
+    def get_extension(filename=''):
+        basename = os.path.basename(str(filename))  # os independent
+        os_sep = os.sep             # '\\'
+        os_altsep = os.altsep       # '/'
 
+        ffile = str(filename).split(os_sep).pop().split(os_altsep).pop()
+        ext = '.'.join(ffile.split('.')[1:])
 
+        if len(ext):
+            return '.' + ext if ext else None
+        else:
+            return ''
 
     def select_root_folder(self):
         foldername = QFileDialog.getExistingDirectory(self.dlg, "Select folder ","",)
@@ -279,3 +315,5 @@ class finddata:
             # substitute with your code.
 
             pass
+
+
