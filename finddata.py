@@ -35,7 +35,7 @@ from PyQt5 import QtWidgets # QtCore, QtGui,
 from .resources import *
 # Import the code for the dialog
 from .finddata_dialog import finddataDialog
-import os.path
+import os
 
 
 class finddata:
@@ -185,32 +185,41 @@ class finddata:
 
         numRows = self.dlg.tableWidget.rowCount()
         # Create a empty row at bottom of table
-        numRows = self.dlg.tableWidget.rowCount()
-        self.dlg.tableWidget.insertRow(numRows)
-
-        self.dlg.tableWidget.show()
-
-
+        #numRows = self.dlg.tableWidget.rowCount()
+        #self.dlg.tableWidget.insertRow(numRows)
+        #self.dlg.tableWidget.show()
         # Add text to the row
-        self.dlg.tableWidget.setItem(numRows, 0, QtWidgets.QTableWidgetItem(str(numRows)))
-        self.dlg.tableWidget.setItem(numRows, 1, QtWidgets.QTableWidgetItem("Привет"))
-        self.dlg.tableWidget.setItem(numRows, 2, QtWidgets.QTableWidgetItem("333"))
 
         try:
             for root, subdirs, files in os.walk(search_folder):
                 for file in os.listdir(root):
                     file_path = str(os.path.join(root, file))
-                    # .lower() - под линуксом есть разница!!!
-                    # ext = '.'.join(file.split('.')[1:]).lower()
-                    file_name = file.lower()
-                    file_ext = self.get_extension(file_name)
-                    # 'shx','shp'
+                    if os.path.isfile(file_path):
+                        numRows = self.dlg.tableWidget.rowCount()
+                        self.dlg.tableWidget.insertRow(numRows)
 
+                        # .lower() - под линуксом есть разница!!!
+                        # ext = '.'.join(file.split('.')[1:]).lower()
+                        file_name = file # .lower()
+                        print(file_name)
+                        # file_ext = self.get_extension(file)
+                        ext = '.'.join(file.split('.')[1:]).lower()
+                        # 'shx','shp'
+                        self.dlg.lvLog.addItem(ext)
+                        self.dlg.tableWidget.setItem(numRows, 0, QtWidgets.QTableWidgetItem(file_name))
+                        self.dlg.tableWidget.setItem(numRows, 1, QtWidgets.QTableWidgetItem(ext))
+                        self.dlg.tableWidget.setItem(numRows, 2, QtWidgets.QTableWidgetItem("size"))
+                        self.dlg.tableWidget.setItem(numRows, 3, QtWidgets.QTableWidgetItem("file_name"))
+                        self.dlg.tableWidget.setItem(numRows, 4, QtWidgets.QTableWidgetItem("cdata"))
+                        self.dlg.tableWidget.setItem(numRows, 5, QtWidgets.QTableWidgetItem("mdata"))
+                        self.dlg.tableWidget.setItem(numRows, 6, QtWidgets.QTableWidgetItem("ladata"))
+                        self.dlg.tableWidget.setItem(numRows, 7, QtWidgets.QTableWidgetItem(file_path))
+                        self.dlg.tableWidget.setItem(numRows, 8, QtWidgets.QTableWidgetItem("npath"))
+                        self.dlg.tableWidget.setHorizontalHeaderItem(2, QtWidgets.QTableWidgetItem())
+                        # if os.path.isfile(file_path) :  # and file_name.startswith('info.doc')      #ext == "csv":
+                        #     self.dlg.lvLog.addItem(file_path)
 
-                    if os.path.isfile(file_path) :  # and file_name.startswith('info.doc')      #ext == "csv":
-                        self.dlg.lvLog.addItem(file_path)
-
-                        #listdir.append(file_path)
+                            #listdir.append(file_path)
         except Exception as e:
             ss = "Exception occurred search_vector_data" + str(e)
             print(ss)
@@ -220,17 +229,9 @@ class finddata:
         pass
 
     def get_extension(filename=''):
-        basename = os.path.basename(str(filename))  # os independent
-        os_sep = os.sep             # '\\'
-        os_altsep = os.altsep       # '/'
-
-        ffile = str(filename).split(os_sep).pop().split(os_altsep).pop()
-        ext = '.'.join(ffile.split('.')[1:])
-
-        if len(ext):
-            return '.' + ext if ext else None
-        else:
-            return ''
+        basename = os.path.basename(filename)  # os independent
+        ext = '.'.join(basename.split('.')[1:])
+        return str('' + ext if ext else '').lower()
 
     def select_root_folder(self):
         foldername = QFileDialog.getExistingDirectory(self.dlg, "Select folder ","",)
